@@ -2,7 +2,7 @@ const axios = require("axios");
 const https = require("https");
 
 const axiosInstance = axios.create({
-  baseURL: "https://api.ktu.edu.in/ktu-web-service/anon/",
+  baseURL: "https://api.ktu.edu.in/",
   httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   headers: {
     Origin: "https://ktu.edu.in",

@@ -3,32 +3,44 @@ const axiosInstance = require('../axios/axiosInstance');
 const calculateSgpa = require('../utils/calculateSgpa');
 const router = express.Router();
 
-router.post('/results', async(req, res) => {
+// /results route
+router.post('/results', async (req, res) => {
     const { program } = req.body;
-    try{
-        const response = await axiosInstance.post('/result', {
-            program: program,
-        });
+    try {
+        const response = await axiosInstance.post('/ktu-web-service/anon/result', { program });
         res.json(response.data);
-    }catch(error){
-        res.status(500).json({ error: error.message });
-    }
-})
-
-router.post('/individualResult', async(req, res) => {
-    const payload = req.body;
-    console.log(payload);
-    try{
-        const response = await axiosInstance.post('/individualresult', payload);
-        const sgpa = calculateSgpa.calculateSgpa(response.data.resultDetails);
-        res.json({
-            result: response.data,
-            sgpa: sgpa,
-        });
-    }catch(error){
+    } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
+// /individualResult route
+router.post('/individualResult', async (req, res) => {
+    const payload = req.body;
+    try {
+        const response = await axiosInstance.post('/ktu-web-service/anon/individualresult', payload);
+        const sgpa = calculateSgpa.calculateSgpa(response.data.resultDetails);
+        res.json({
+            result: response.data,
+            sgpa,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
-module.exports = router
+// /ping route
+router.get('/ping', async (req, res) => {
+    try {
+        const start = Date.now();
+        await axiosInstance.head('/');
+        const end = Date.now();
+        const ping = end - start;
+        res.json({ ping: ping > 999 ? "999+" : ping });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: error.message });
+    }
+});
+
+module.exports = router;
