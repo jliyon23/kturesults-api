@@ -63,4 +63,14 @@ router.post('/timetables', async (req, res) => {
     }
 })
 
+router.post('/getAttachment', async (req, res) => {
+    const { encryptId } = req.body;
+    try {
+        const response = await axiosInstance.post('/ktu-web-portal-api/anon/getAttachment', { encryptId: encryptId });
+        res.json({ attachment: response.data });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
+
 module.exports = router;
