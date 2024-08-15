@@ -53,4 +53,14 @@ router.post('/announcements', async (req, res) => {
     }
 })
 
+router.post('/timetables', async (req, res) => {
+    const payload = req.body;
+    try {
+        const response = await axiosInstance.post('/ktu-web-portal-api/anon/timetable', payload);
+        res.json({ timetables: response.data.content, totalPages: response.data.totalPages });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
+
 module.exports = router;
