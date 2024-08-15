@@ -47,11 +47,18 @@ router.post('/announcements', async (req, res) => {
     const payload = req.body;
     try {
         const response = await axiosInstance.post('/ktu-web-portal-api/anon/announcemnts', payload);
-        res.json({ announcements: response.data.content, totalPages: response.data.totalPages });
+        
+        // Sort the announcements based on the announcementDate
+        const sortedAnnouncements = response.data.content.sort((a, b) => 
+            new Date(b.announcementDate) - new Date(a.announcementDate)
+        );
+        
+        res.json({ announcements: sortedAnnouncements, totalPages: response.data.totalPages });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-})
+});
+
 
 router.post('/timetables', async (req, res) => {
     const payload = req.body;
