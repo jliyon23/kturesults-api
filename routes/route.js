@@ -43,4 +43,14 @@ router.get('/ping', async (req, res) => {
     }
 });
 
+router.post('/announcements', async (req, res) => {
+    const payload = req.body;
+    try {
+        const response = await axiosInstance.post('/ktu-web-portal-api/anon/announcemnts', payload);
+        res.json({ announcements: response.data.content });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
+
 module.exports = router;
