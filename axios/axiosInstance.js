@@ -12,22 +12,8 @@ const axiosInstance = axios.create({
   },
 });
 
-let anchorr = 'https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LcvySgqAAAAAHg-dND0IIYOegKuauyDFFucRi1P&co=aHR0cHM6Ly9rdHUuZWR1LmluOjQ0Mw..&hl=en-GB&v=hfUfsXWZFeg83qqxrK27GB8P&size=invisible&cb=lhcafs64e2rt';
+let anchorr = 'https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ldb0ioqAAAAAJMH5vs0_SAPK72nf7hEE5R9wpmf&co=aHR0cHM6Ly9rdHUuZWR1LmluOjQ0Mw..&hl=en-GB&v=hfUfsXWZFeg83qqxrK27GB8P&size=invisible&cb=iaq4g4fukit0';
 
-// Function to fetch and update anchorr every 20 minutes
-const updateAnchorUrl = async () => {
-  try {
-    const response = await axios.get("https://fetchanchorurl.onrender.com/fetch-recaptcha");
-    anchorr = response.data.anchorUrl.trim();
-    console.log(`Anchor URL updated: ${anchorr}`);
-  } catch (error) {
-    console.error("Error fetching anchor URL:", error);
-  }
-};
-
-// Update the anchor URL immediately and then every 20 minutes
-updateAnchorUrl();
-setInterval(updateAnchorUrl, 1200 * 1000); // 30 minutes 
 
 const getToken = async () => {
   if (!anchorr) {
