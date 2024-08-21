@@ -7,7 +7,6 @@ const router = express.Router();
 router.post('/results', async (req, res) => {
     const { program } = req.body;
     try {
-        console.log("debugged")
         const response = await axiosInstance.post('/ktu-web-service/anon/result', { program });
         res.json(response.data);
     } catch (error) {
