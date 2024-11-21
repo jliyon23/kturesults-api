@@ -25,7 +25,7 @@ const axiosInstance = axios.create({
 
 // axiosInstance.interceptors.request.use(
 //   async (config) => {
-//     const token = await getToken();
+//     const token = "";
 
 //     if (token) {
 //       config.headers["X-Token"] = token;
