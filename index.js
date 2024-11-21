@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', require('./routes/route'));
 
 
-app.listen(3001, () => {
-    console.log('Server is running on port 3001');
-    });
+const PORT = process.env.PORT || 3001; // Default to 3001 if no PORT is specified
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
