@@ -3,8 +3,11 @@ const https = require("https");
 
 const axiosInstance = axios.create({
   baseURL: "https://api.ktu.edu.in/",
+  httpAgent: new https.Agent({
+    rejectUnauthorized: false
+  }),
   headers: {
-    "X-Token": "",
+    "x-Token": "",
     Origin: "https://ktu.edu.in",
     Referer: "https://ktu.edu.in/",
     "User-Agent":
@@ -12,12 +15,12 @@ const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  config.httpsAgent = new https.Agent({
-    rejectUnauthorized: false // Disable SSL verification
-  });
-  return config;
-});
+// axiosInstance.interceptors.request.use((config) => {
+//   config.httpsAgent = new https.Agent({
+//     rejectUnauthorized: false // Disable SSL verification
+//   });
+//   return config;
+// });
 
 // const getToken = async () => {
 //   try {
